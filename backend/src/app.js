@@ -4,6 +4,12 @@ import bodyParser from "koa-bodyparser"
 import AppController from "./app.controller.js"
 import cors from "@koa/cors"
 import multer from "@koa/multer"
+import { sequelize } from "./database.js"
+
+sequelize.sync({
+})
+.then(() => console.log("Database synchronized successfully!"))
+.catch(e => console.error(e))
 
 const app = new Koa()
 
