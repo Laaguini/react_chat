@@ -1,9 +1,10 @@
 import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import './App.css'
-import { createBrowserRouter, RouterProvider, Link, Router } from "react-router-dom"
+import { createBrowserRouter, Routes, Route } from "react-router-dom"
 import Home from "./pages/Home.jsx"
 import Catalog from "./pages/Catalog.jsx"
+import Layout from './components/layout'
 
 function App() {
   const router = createBrowserRouter([
@@ -19,11 +20,12 @@ function App() {
 
   return (
     <div className="App">
-      <div>
-        <a href="/">Главная</a>
-        <a href="/catalog">Каталог</a>
-      </div>
-      <RouterProvider router={router} />
+      <Routes>
+        <Route path="/" element={<Layout/>}>
+          <Route index element={<Home/>} />
+          <Route path="catalog" element={<Catalog/>} />
+        </Route>
+      </Routes>
     </div>
   )
 }
