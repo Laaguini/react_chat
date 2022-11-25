@@ -13,7 +13,7 @@ const sequelize = new Sequelize(
         min: 0,
         idle: 10000
       },
-      storage: "../database.sqlite"
+      storage: "./database.sqlite"
     }
   );
 
@@ -30,7 +30,6 @@ const Message = sequelize.define('Message', {
         type: T.UUID,
         defaultValue: T.UUIDV4,
         allowNull: false, 
-        unique: true,
         primaryKey: true
     }
 })
@@ -47,33 +46,28 @@ const User = sequelize.define('User', {
     },
 })
 
-const Room = sequelize.define('ChatRoom', {
+const Room = sequelize.define('Room', {
     id: {
         type: T.UUID,
         defaultValue: T.UUIDV4,
-        allowNull: false, 
-        unique: true,
+        allowNull: false,
         primaryKey: true
     },
     name: {
         type: T.STRING, 
+    },
+    owner: {
+        type: T.STRING, 
+        allowNull: false,
     }
 })
 
-const Chat = sequelize.define("Room", {
-    id: {
-        type: T.UUID,
-        defaultValue: T.UUIDV4,
-        allowNull: false, 
-        unique: true,
-        primaryKey: true
-    }
-})
+const UserRoom = sequelize.define('UserRoom')
 
 Room.hasMany(Message, { onDelete: "cascade" })
-Message.hasOne(User, { onDelete: "cascade" })
-Room.belongsToMany(User, { through: Chat })
-User.belongsToMany(Room, { through: Chat })
+Message.hasOne(User)
+Room.belongsToMany(User, { through: UserRoom })
+User.belongsToMany(Room, { through: UserRoom })
 
 
-export { User, Room, Message, Chat, sequelize }
+export { User, Room, Message, UserRoom, sequelize } 
