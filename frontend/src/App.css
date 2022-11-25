@@ -19,7 +19,8 @@ body{
   width: 100%;
   color: black;
   border-bottom: 1px rgba(78, 78, 78, 0.534) solid;
-  backdrop-filter: blur(8px)
+  backdrop-filter: blur(8px);
+  box-shadow: 1px 1px 30px 2px rgba(0, 0, 0, 0.274);
 }
 .navList{
     margin: 0;
